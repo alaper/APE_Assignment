@@ -3,11 +3,11 @@ package test;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.acmetelecom.CustomerDatabase;
+import com.acmetelecom.ICustomerDatabase;
 import com.acmetelecom.customer.Customer;
 
 
-public class FakeCustomerDatabase implements CustomerDatabase {
+public class FakeCustomerDatabase implements ICustomerDatabase {
 
 	private List<Customer> customerList;
 	

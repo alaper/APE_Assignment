@@ -4,7 +4,7 @@ import java.util.List;
 import com.acmetelecom.customer.Customer;
 
 
-public interface CustomerDatabase {
+public interface ICustomerDatabase {
 
 	public List<Customer> getCustomers();
 	

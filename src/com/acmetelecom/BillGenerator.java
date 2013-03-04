@@ -1,7 +1,9 @@
 package com.acmetelecom;
 
 import com.acmetelecom.customer.Customer;
-
+import com.acmetelecom.customer.Tariff;
+import java.math.*;
+import java.math.BigDecimal;
 import java.util.List;
 
 public class BillGenerator {
@@ -37,7 +39,7 @@ public class BillGenerator {
 		
 		for(Call call : calls)
 		{
-			BigDecimal.callCost = calculateCost(tariff, call);
+			BigDecimal callCost = calculateCost(tariff, call);
 			bill.addLine(call,  callCost);
 		}
 		
@@ -47,8 +49,10 @@ public class BillGenerator {
 	public BigDecimal calculateCost(Tariff tariff, Call call)
 	{
 		BigDecimal cost;
+		DaytimePeakPeriod peakPeriod = new DaytimePeakPeriod();
 		
-		if(peakPeriod.offPeak(call.startTime()) && peakPeriod.offPeak(call.endTime()) && call.udrationSeconds() < 12 * 60 * 60)
+		
+		if(peakPeriod.offPeak(call.startTime()) && peakPeriod.offPeak(call.endTime()) && call.durationSeconds() < 12 * 60 * 60)
 		{
 			cost = new BigDecimal(call.durationSeconds()).multiply(tariff.offPeakRate());
 		} else

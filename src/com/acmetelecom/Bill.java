@@ -47,7 +47,7 @@ public class Bill {
 		return MoneyFormatter.penceToPounds(total);
 	}
 	
-	private class LineItem{
+	public class LineItem{
 		private Call call;
 		private BigDecimal callCost;
 		

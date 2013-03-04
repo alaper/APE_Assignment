@@ -38,7 +38,7 @@ public class FakePrinter implements Printer {
 
 	@Override
 	public void printTotal(String total) {
-		this.total = total;
+		this.total =  total;
 
 	}
 

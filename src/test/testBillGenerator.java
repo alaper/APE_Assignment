@@ -1,5 +1,8 @@
 package test;
+import java.math.BigDecimal;
+
 import com.acmetelecom.*;
+import com.acmetelecom.customer.Tariff;
 
 import static org.junit.Assert.*;
 
@@ -12,7 +15,7 @@ public class testBillGenerator {
 	private FakeCustomerDatabase fkCustomerDatabase;
 	private FakeTariffDatabase fkTariffDatabase;
 	private CallLog callLog;
-	
+	private FakePrinter fkPrinter;
 	
 	
 	@Before
@@ -37,12 +40,19 @@ public class testBillGenerator {
 	
 	}
 
+	@SuppressWarnings("deprecation")
 	@Test
 	public void testTotalBillCost() {
 		
-		BillGenerator billGenerator = new BillGenerator(fkCustomerDatabase, fkTariffDatabase);
+		BillGenerator billGenerator = new BillGenerator(fkCustomerDatabase, fkTariffDatabase, callLog, fkPrinter);
 		
-		assertEquals(1,1);
+		Bill testBill = billGenerator.getBillFor(fkCustomerDatabase.findCustomer("12345"));
+		
+		double calculatedTotal = 2 * 60 * 60 * Tariff.Business.peakRate().doubleValue();
+		calculatedTotal += 5 * 60 * 60 * Tariff.Business.offPeakRate().doubleValue();
+		
+		
+		assertEquals(testBill.getTotal().doubleValue(),calculatedTotal);
 		
 	}
 

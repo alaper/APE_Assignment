@@ -1,4 +1,4 @@
- <project name="APE_Assignment" default="compile">
+ <project name="APE_Assignment" default="junit">
  <target name="help" depends="clean">
   <echo>ant compile: compile the project</echo> 
   <echo>ant junit: run unit test</echo> 
@@ -37,8 +37,8 @@
   <junit printsummary="yes" fork="yes" haltonfailure="no">
  	<classpath refid="test.classpath"/>
  	<batchtest fork="yes" todir="${junit.report}">
- 	<fileset dir="${bin.test}">
-  		<include name="**/*Test.class" /> 
+ 	<fileset dir="${bin}">
+  		<include name="**/test**.class" /> 
   	</fileset>
   </batchtest>
   </junit>

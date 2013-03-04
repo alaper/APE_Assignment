@@ -21,6 +21,10 @@ public class Call {
         return start.getCallee();
     }
 
+    public String caller() {
+    	return start.getCaller();
+    }
+    
     public int durationSeconds() {
         return (int) (((end.time() - start.time()) / 1000));
     }

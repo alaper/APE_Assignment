@@ -1,55 +1,45 @@
- <project name="TestStuff" default="fit">
+ <project name="APE_Assignment" default="compile">
  <target name="help" depends="clean">
   <echo>ant compile: compile the project</echo> 
   <echo>ant junit: run unit test</echo> 
   <echo>ant fit: run fit tests</echo>
-  <echo>${os.name}</echo>	
-  </target>
-  <property name="src.com" location="src/com" /> 
-  <property name="src.test" location="src" /> 
-  <property name="bin" location="bin" /> 
-  <property name="lib" location="lib" /> 	
-  <property name="report" location="report" /> 
-  <property name="junit.report" location="report/junit" /> 
-  <property name="bin.test" location="bin/test" /> 
-  <property name="fit" location="fit" /> 
-  <property name="fit.report" location="report/fit" /> 
+ </target>
+ 	
+ 	<property name="src" location="src" /> 
+  	<property name="bin" location="bin" /> 
+  	<property name="lib" location="lib" /> 	
+  	<property name="report" location="report" /> 
+  	<property name="junit.report" location="report/junit" /> 
+  	<property name="fit" location="fit" /> 
+  	<property name="fit.report" location="report/fit" /> 
  
  <path id="lib.classpath">
  <fileset dir="${lib}">
   <include name="**/*.jar" /> 
-  </fileset>
-  </path>
- <path id="test.classpath">
-  <path refid="lib.classpath" /> 
-  <pathelement location="${bin.test}" /> 
-  </path>
- <target name="default" depends="clean">
-  <property name="myclasspath" refid="test.classpath" /> 
-  <echo message="Classpath = ${myclasspath}" /> 
-  </target>
- <target name="compile" depends="default">
-  <mkdir dir="${bin}" />
-  <mkdir dir="${bin.test}"/>
- <javac includeantruntime="false" srcdir="${src.com}" destdir="${bin}">
-  
- 	<classpath refid="lib.classpath" /> 
-  </javac>
- <javac includeantruntime="false" srcdir="${src.test}" destdir="${bin.test}">
- 	 	<classpath refid="lib.classpath"/>
-  </javac>
+ </fileset>
+ </path>
  
- </target>
+ <path id="test.classpath">
+ 	<path refid="lib.classpath"/>
+ 	<pathelement location="${bin}"/>
+ </path>
+ 	
+ 	
+ <target name="compile" depends="help">
+  <mkdir dir="${bin}" />
+ <javac includeantruntime="false" srcdir="${src}" destdir="${bin}">
+  <classpath refid="lib.classpath" /> 
+  </javac>
+  </target>
  
  <target name="junit" depends="compile">
   <mkdir dir="${junit.report}" />
-  	
- <junit printsummary="yes" fork="yes" haltonfailure="no">
+  <junit printsummary="yes" fork="yes" haltonfailure="no">
  	<classpath refid="test.classpath"/>
  	<batchtest fork="yes" todir="${junit.report}">
- <fileset dir="${bin.test}">
-  <include name="**/*Test.class" /> 
-  </fileset>
+ 	<fileset dir="${bin.test}">
+  		<include name="**/*Test.class" /> 
+  	</fileset>
   </batchtest>
   </junit>
   </target>
@@ -63,6 +53,7 @@
   </java>
   <echo>Please see the FIT report page for more details</echo> 
   </target>
+
  <target name="clean">
   <delete dir="${bin}" /> 
   <delete dir="${report}" /> 

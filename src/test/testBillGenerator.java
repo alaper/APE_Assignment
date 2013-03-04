@@ -40,7 +40,6 @@ public class testBillGenerator {
 	
 	}
 
-	@SuppressWarnings("deprecation")
 	@Test
 	public void testTotalBillCost() {
 		
@@ -48,11 +47,13 @@ public class testBillGenerator {
 		
 		Bill testBill = billGenerator.getBillFor(fkCustomerDatabase.findCustomer("12345"));
 		
-		double calculatedTotal = 2 * 60 * 60 * Tariff.Business.peakRate().doubleValue();
-		calculatedTotal += 5 * 60 * 60 * Tariff.Business.offPeakRate().doubleValue();
+		BigDecimal calculatedPeakCharge = Tariff.Business.peakRate().multiply(new BigDecimal(7200));
+		BigDecimal calculatedOffPeakCharge = Tariff.Business.offPeakRate().multiply(new BigDecimal(18000));
+		
+		BigDecimal calculatedCharge = calculatedPeakCharge.add(calculatedOffPeakCharge); 
 		
 		
-		assertEquals(testBill.getTotal().doubleValue(),calculatedTotal);
+		assertEquals(testBill.getTotal().compareTo(calculatedCharge),0);
 		
 	}
 

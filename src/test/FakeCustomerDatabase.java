@@ -26,4 +26,15 @@ public class FakeCustomerDatabase implements ICustomerDatabase {
 	{
 		customerList.add(new Customer(name, phoneNumber, pricePlan));
 	}
+	
+	public Customer findCustomer(String phoneNumber)
+	{
+		for(Customer customer : customerList)
+		{
+			if(customer.getPhoneNumber().compareTo(phoneNumber)==0)
+				{return customer;}
+		}
+		
+		return null;
+	}
 }

@@ -26,16 +26,17 @@ public class BillGenerator {
 	{
 		List<Customer> customers = customerDatabase.getCustomers();
 		for (Customer customer: customers)
-		{	createBillFor(customer); }
+		{	print(getBillFor(customer)); }
 		
 		callLog.clear();
 	}
 	
-	private void createBillFor(Customer customer)
+	public Bill getBillFor(Customer customer)
 	{
 		List<Call> calls = callLog.getCallLog(customer);
 		Tariff tariff = tariffDatabase.getTariff(customer);
 		Bill bill = new Bill();
+		bill.setCustomer(customer);
 		
 		for(Call call : calls)
 		{
@@ -43,7 +44,7 @@ public class BillGenerator {
 			bill.addLine(call,  callCost);
 		}
 		
-		print(customer, bill);
+		return bill;
 	}
 
 	public BigDecimal calculateCost(Tariff tariff, Call call)
@@ -64,9 +65,9 @@ public class BillGenerator {
 		return cost;
 	}
 
-	public void print(Customer customer, Bill bill)
+	public void print(Bill bill)
 	{
-		printer.printHeading(customer.getFullName(), customer.getPhoneNumber(),  customer.getPricePlan());
+		printer.printHeading(bill.getCustomer().getFullName(), bill.getCustomer().getPhoneNumber(),  bill.getCustomer().getPricePlan());
 		
 		for (Bill.LineItem call: bill.getLines())
 		{

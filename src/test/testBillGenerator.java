@@ -9,12 +9,18 @@ import org.joda.time.*;
 
 public class testBillGenerator {
 
+	private FakeCustomerDatabase fkCustomerDatabase;
+	private FakeTariffDatabase fkTariffDatabase;
+	private CallLog callLog;
+	
+	
+	
 	@Before
 	public void setUp() throws Exception {
 	
-		CallLog callLog = new CallLog();
-		FakeCustomerDatabase fkCustomerDatabase = new FakeCustomerDatabase();
-		FakeTariffDatabase fkTariffDatabase = new FakeTariffDatabase();
+		callLog = new CallLog();
+		fkCustomerDatabase = new FakeCustomerDatabase();
+		fkTariffDatabase = new FakeTariffDatabase();
 		DateTime callStart = new DateTime(2013,2,15,15,0,0,0);
 		DateTime callEnd = new DateTime(2013,2,15,19,0,0,0);
 		fkCustomerDatabase.addCustomer("John", "12345", "Business");
@@ -28,16 +34,16 @@ public class testBillGenerator {
 		
 		callLog.initiateCall("12345", "54321", callStart.getMillis());
 		callLog.callCompleted("12345", "54321", callEnd.getMillis());
-		
-		
-		
-	
 	
 	}
 
 	@Test
-	public void testCalculateCost() {
-		fail("Not yet implemented");
+	public void testTotalBillCost() {
+		
+		BillGenerator billGenerator = new BillGenerator(fkCustomerDatabase, fkTariffDatabase);
+		
+		assertEquals(1,1);
+		
 	}
 
 }

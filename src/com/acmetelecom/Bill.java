@@ -4,16 +4,30 @@ import java.util.ArrayList;
 import java.util.List;
 import java.math.BigDecimal;
 
+import com.acmetelecom.customer.Customer;
+
 public class Bill {
 
 	private BigDecimal total;
 	private List<LineItem> lines;
+	private Customer customer;
 	
 	public Bill()
 	{
 		lines = new ArrayList();
 		total = new BigDecimal(0);
 		
+	}
+	
+	
+	public void setCustomer(Customer customer)
+	{
+		this.customer = customer;
+	}
+	
+	public Customer getCustomer()
+	{
+		return customer;
 	}
 	
 	public void setTotal(BigDecimal total)
